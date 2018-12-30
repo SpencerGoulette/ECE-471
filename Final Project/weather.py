@@ -3,15 +3,13 @@
 #11/23/18
 
 #uses weather api to get current weather data for Bangor ME
-#then create an 128x128 image for display
+#then create an 128x128 image for display on an SPI device
 
 import requests
 import Image
 import ImageDraw
 import ST7735 as TFT
-import Adafruit_GPIO as GPIO
 import Adafruit_GPIO.SPI as SPI
-
 
 #Getting weather data
 address = 'http://api.openweathermap.org/data/2.5/weather?appid=62ab759f6e4188d80f57fbbd854be303&q=Bangor'
@@ -28,10 +26,10 @@ pressure = 'Pressure: %dhpa' %pressure
 humidity = 'Humidity: %d' %humidity + '%'
 
 #Creating weather image for SPI display
-image = Image.new('RGB', (128,128), (0, 0, 255))    #RGB, size, color
-draw = ImageDraw.Draw(image)
-draw.text((20,9), 'Current weather', fill=(0, 0, 0))
-draw.text((35, 18), 'Bangor, ME', fill=(0, 0, 0))
+image = Image.new('RGB', (128,128), (0, 0, 255))    #RGB, size, color => Blue was chosen for the background
+draw = ImageDraw.Draw(image)                        #creates image
+draw.text((20,9), 'Current weather', fill=(0, 0, 0))#(x,y), text, (R, G, B)
+draw.text((35, 18), 'Bangor, ME', fill=(0, 0, 0))    #Bangor was chosen as it is the closest availabel city 
 draw.text((6, 36), weather, fill=(0, 0, 0))
 draw.text((6, 45), wind, fill=(0, 0, 0))
 draw.text((6, 54), temperature, fill=(0, 0, 0))
@@ -43,13 +41,6 @@ DC = 24
 RST = 25
 
 #Displaying weather data
-display1 = TFT.ST7735(DC, rst=RST, spi=SPI.SpiDev(0, 0, max_speed_hz=8000000))
-display1._init()
-display1.display(image)
+display1 = TFT.ST7735(DC, rst=RST, spi=SPI.SpiDev(0, 0, max_speed_hz=8000000)) # display initalized in initDisplay.py
+display1.display(image) #displays image
 
-
-#Display gives tank status information
-display2 = TFT.ST7735(DC, rst=RST, spi=SPI.SpiDev(0, 1, max_speed_hz=8000000))
-display2._init()
-theLord = Image.open('tachanka.jpeg').resize((128, 128))
-display2.display(theLord)
