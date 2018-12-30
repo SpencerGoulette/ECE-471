@@ -3,6 +3,9 @@ Project for ECE471
 
 ![alt text](https://github.com/SpencerGoulette/ECE-471/blob/master/Final%20Project/Tank.jpg)
 
+Link for Final Project Repository:
+https://github.com/JasonMillette/RpiTank
+
 # Report
   Our ECE471 project was a remotely controlled tank with an onboard weather station and a Memes on Demand button(trademark pending). This was accomplished with a Raspberry Pi, SPI displays, and stepper motors. The Raspberry Pi ran a web server that had a joystick and live camera feed. The weather was requested using open weather map’s API. The data was then put into an image and displayed on one of the SPI displays. Another notable feature of our tank was the inclusion of a Memes on Demand Button(trademark pending). This button would display memes on the second SPI display. On startup, the second SPI display will show the IP address for the Raspberry Pi so that the user can connect to the webpage.
 
